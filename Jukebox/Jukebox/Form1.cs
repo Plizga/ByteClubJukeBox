@@ -14,27 +14,49 @@ namespace Jukebox
 
     public partial class Form1 : Form
     {
-        private SoundPlayer Player = new SoundPlayer();
+        private WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
+        private string Url;
 
         public Form1()
         {
             InitializeComponent();
-            //Player.SoundLocation = System.IO.Directory.GetCurrentDirectory().Substring(0, System.IO.Directory.GetCurrentDirectory().IndexOf("/bin")) + "/resources/" + SongSelector.Text + ".wav";
         }
 
         private void PlayBtn_Click(object sender, EventArgs e)
         {
-            Player.Play(); 
+            PlayClip(Url);
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Player.SoundLocation = System.IO.Directory.GetCurrentDirectory().Substring(0, System.IO.Directory.GetCurrentDirectory().IndexOf("/bin")) + "/resources/" + SongSelector.Text + ".wav";
+            Url = System.IO.Directory.GetCurrentDirectory().Substring(0, System.IO.Directory.GetCurrentDirectory().IndexOf("/bin")) + "/assets/audioFiles/" + SongSelector.Text;
         }
 
-        private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
+        private void PlayClip(string url)
         {
+            Player.URL = url;
+            Player.controls.play();
+        }
 
+        private void PauseClip(){
+            Player.controls.pause();
+        }
+
+        private void EndClip()
+        {
+            Player.controls.stop();
+        }
+
+        private void SwitchClip(string url)
+        {
+            EndClip();
+            PlayClip(url); 
+        }
+
+        private void AddClip(string url)
+        {
+            WMPLib.IWMPMedia song = Player.newMedia(url);
+            Player.currentPlaylist.appendItem(song);
         }
     }
 }
