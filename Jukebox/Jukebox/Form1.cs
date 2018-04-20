@@ -16,10 +16,24 @@ namespace Jukebox
     {
         private WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
         private string Url;
+        private string fileDirectory = System.IO.Directory.GetCurrentDirectory().Substring(0, System.IO.Directory.GetCurrentDirectory().IndexOf("/Jukebox") + 64) + "Assets/AudioFiles/";
+        private List<string> files = new List<string>();
 
         public Form1()
         {
             InitializeComponent();
+
+
+            files.AddRange(System.IO.Directory.GetFiles(fileDirectory, "*.mp3"));
+
+            for (int i = 0; i < files.Count; i++)
+            {
+                int start = files[i].IndexOf("/AudioFiles/") + 12;
+                files[i] = files[i].Substring(start, (files[i].Length - 4) - start);
+            }
+
+            SongSelector.Items.Clear();
+            SongSelector.Items.AddRange(files.ToArray());
         }
 
         private void PlayBtn_Click(object sender, EventArgs e)
@@ -29,7 +43,7 @@ namespace Jukebox
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Url = System.IO.Directory.GetCurrentDirectory().Substring(0, System.IO.Directory.GetCurrentDirectory().IndexOf("/bin")) + "/assets/audioFiles/" + SongSelector.Text;
+            Url = fileDirectory + SongSelector.Text;
         }
 
         private void PlayClip(string url)
