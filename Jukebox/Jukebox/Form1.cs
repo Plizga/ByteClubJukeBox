@@ -14,10 +14,11 @@ namespace Jukebox
 
     public partial class Form1 : Form
     {
-        private WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
-        private string Url;
-        private string fileDirectory = System.IO.Directory.GetCurrentDirectory().Substring(0, System.IO.Directory.GetCurrentDirectory().IndexOf("\\bin")) + "/Assets/AudioFiles/";
+        private WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
+        private string url;
+        private string fileDirectory = System.IO.Directory.GetCurrentDirectory().Substring(0, System.IO.Directory.GetCurrentDirectory().IndexOf("\\bin")).Replace("\\", "/") + "/Assets/AudioFiles/";
         private List<string> files = new List<string>();
+        private string currentSong = "";
 
         public Form1()
         {
@@ -42,39 +43,68 @@ namespace Jukebox
 
         private void PlayBtn_Click(object sender, EventArgs e)
         {
-            PlayClip(Url);
+           if (!currentSong.Equals("") && SongSelector.Text.ToUpper().Equals(player.currentMedia.name.ToUpper()))
+            {
+                if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                {
+                    PauseClip();
+                    PlayBtn.Text = "Resume";
+                }
+                else if (player.playState == WMPLib.WMPPlayState.wmppsPaused)
+                {
+                    ResumeClip();
+                    PlayBtn.Text = "Pause";
+                }
+            }
+            else
+            {
+                currentSong = SongSelector.Text;
+                url = fileDirectory + currentSong + ".mp3";
+                PlayClip(url);
+                PlayBtn.Text = "Pause";
+            }
+        }
+
+        private void StopBtn_Click(object sender, EventArgs e)
+        {
+            EndClip();
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Url = fileDirectory + SongSelector.Text;
+            url = fileDirectory + SongSelector.Text;
         }
 
-        private void PlayClip(string url)
+        private void PlayClip(string fileDir)
         {
-            Player.URL = url;
-            Player.controls.play();
+            player.URL = fileDir;
+            player.controls.play();
         }
 
         private void PauseClip(){
-            Player.controls.pause();
+            player.controls.pause();
         }
 
         private void EndClip()
         {
-            Player.controls.stop();
+            player.controls.stop();
         }
 
-        private void SwitchClip(string url)
+        private void SwitchClip(string fileDir)
         {
             EndClip();
-            PlayClip(url); 
+            PlayClip(fileDir); 
         }
 
-        private void AddClip(string url)
+        private void AddClip(string fileDir)
         {
-            WMPLib.IWMPMedia song = Player.newMedia(url);
-            Player.currentPlaylist.appendItem(song);
+            WMPLib.IWMPMedia song = player.newMedia(fileDir);
+            player.currentPlaylist.appendItem(song);
+        }
+
+        private void ResumeClip()
+        {
+            player.controls.play();
         }
     }
 }
