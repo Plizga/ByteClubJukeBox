@@ -32,6 +32,8 @@
             this.SongSelector = new System.Windows.Forms.ComboBox();
             this.RepeatBox = new System.Windows.Forms.CheckBox();
             this.StopBtn = new System.Windows.Forms.Button();
+            this.NowPlaying = new System.Windows.Forms.Label();
+            this.CurrentSongNameLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // PlayBtn
@@ -55,10 +57,10 @@
             // RepeatBox
             // 
             this.RepeatBox.AutoSize = true;
-            this.RepeatBox.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.RepeatBox.Location = new System.Drawing.Point(320, 74);
+            this.RepeatBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 0.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Inch, ((byte)(0)));
+            this.RepeatBox.Location = new System.Drawing.Point(45, 165);
             this.RepeatBox.Name = "RepeatBox";
-            this.RepeatBox.Size = new System.Drawing.Size(46, 31);
+            this.RepeatBox.Size = new System.Drawing.Size(110, 33);
             this.RepeatBox.TabIndex = 2;
             this.RepeatBox.Text = "Repeat";
             this.RepeatBox.UseVisualStyleBackColor = true;
@@ -73,11 +75,32 @@
             this.StopBtn.UseVisualStyleBackColor = true;
             this.StopBtn.Click += new System.EventHandler(this.StopBtn_Click);
             // 
+            // NowPlaying
+            // 
+            this.NowPlaying.AutoSize = true;
+            this.NowPlaying.Font = new System.Drawing.Font("Microsoft Sans Serif", 0.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Inch, ((byte)(0)));
+            this.NowPlaying.Location = new System.Drawing.Point(40, 121);
+            this.NowPlaying.Name = "NowPlaying";
+            this.NowPlaying.Size = new System.Drawing.Size(160, 29);
+            this.NowPlaying.TabIndex = 4;
+            this.NowPlaying.Text = "Now Playing :";
+            // 
+            // CurrentSongNameLbl
+            // 
+            this.CurrentSongNameLbl.AutoSize = true;
+            this.CurrentSongNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 0.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Inch, ((byte)(0)));
+            this.CurrentSongNameLbl.Location = new System.Drawing.Point(223, 121);
+            this.CurrentSongNameLbl.Name = "CurrentSongNameLbl";
+            this.CurrentSongNameLbl.Size = new System.Drawing.Size(0, 29);
+            this.CurrentSongNameLbl.TabIndex = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 449);
+            this.Controls.Add(this.CurrentSongNameLbl);
+            this.Controls.Add(this.NowPlaying);
             this.Controls.Add(this.StopBtn);
             this.Controls.Add(this.RepeatBox);
             this.Controls.Add(this.SongSelector);
@@ -95,6 +118,8 @@
         private System.Windows.Forms.ComboBox SongSelector;
         private System.Windows.Forms.CheckBox RepeatBox;
         private System.Windows.Forms.Button StopBtn;
+        private System.Windows.Forms.Label NowPlaying;
+        private System.Windows.Forms.Label CurrentSongNameLbl;
     }
 }
 

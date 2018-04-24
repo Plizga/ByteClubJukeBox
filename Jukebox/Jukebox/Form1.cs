@@ -43,7 +43,7 @@ namespace Jukebox
 
         private void PlayBtn_Click(object sender, EventArgs e)
         {
-           if (!currentSong.Equals("") && SongSelector.Text.ToUpper().Equals(player.currentMedia.name.ToUpper()))
+           if (!currentSong.Equals("") && player.currentMedia.sourceURL.IndexOf(currentSong) != -1 && player.playState != WMPLib.WMPPlayState.wmppsStopped)
             {
                 if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
@@ -61,6 +61,7 @@ namespace Jukebox
                 currentSong = SongSelector.Text;
                 url = fileDirectory + currentSong + ".mp3";
                 PlayClip(url);
+                CurrentSongNameLbl.Text = currentSong;
                 PlayBtn.Text = "Pause";
             }
         }
@@ -68,6 +69,7 @@ namespace Jukebox
         private void StopBtn_Click(object sender, EventArgs e)
         {
             EndClip();
+            PlayBtn.Text = "Play";
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
