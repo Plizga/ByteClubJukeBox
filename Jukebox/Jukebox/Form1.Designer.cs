@@ -39,7 +39,6 @@ namespace Jukebox
             this.CurrentSongNameLbl = new System.Windows.Forms.Label();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.Timer = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ShuffleBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.SuspendLayout();
@@ -117,16 +116,6 @@ namespace Jukebox
             this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 6;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // ShuffleBox
             // 
             this.ShuffleBox.AutoSize = true;
@@ -145,7 +134,6 @@ namespace Jukebox
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 449);
             this.Controls.Add(this.ShuffleBox);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.CurrentSongNameLbl);
             this.Controls.Add(this.NowPlaying);
             this.Controls.Add(this.StopBtn);
@@ -170,7 +158,6 @@ namespace Jukebox
         private System.Windows.Forms.Label CurrentSongNameLbl;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
         private System.Windows.Forms.Timer Timer;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox ShuffleBox;
     }
 }

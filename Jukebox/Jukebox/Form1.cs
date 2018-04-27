@@ -15,7 +15,7 @@ namespace Jukebox
 
     public partial class Form1 : Form
     {
-        private WindowsMediaPlayer Player = new WindowsMediaPlayer();
+        private WindowsMediaPlayer player = new WindowsMediaPlayer();
         private string fileDirectory = System.IO.Directory.GetCurrentDirectory().Substring(0, System.IO.Directory.GetCurrentDirectory().IndexOf("\\bin")).Replace("\\", "/") + "/Assets/AudioFiles/";
         private List<string> files = new List<string>();
         private IWMPPlaylist shuffledList;
@@ -50,14 +50,14 @@ namespace Jukebox
         private void PlayBtn_Click(object sender, EventArgs e)
         {
            if (!currentSong.Equals("") &&
-                Player.currentMedia.sourceURL.IndexOf(SongSelector.Text) != -1 &&
-                Player.playState != WMPLib.WMPPlayState.wmppsStopped)
+                player.currentMedia.sourceURL.IndexOf(SongSelector.Text) != -1 &&
+                player.playState != WMPLib.WMPPlayState.wmppsStopped)
             {
-                if (Player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
                     PauseClip();
                 }
-                else if (Player.playState == WMPLib.WMPPlayState.wmppsPaused)
+                else if (player.playState == WMPLib.WMPPlayState.wmppsPaused)
                 {
                     ResumeClip();
                 }
@@ -77,20 +77,20 @@ namespace Jukebox
 
         private void PlayClip(int index)
         {
-            Player.currentMedia = Player.currentMedia;
-            Player.controls.play();
-            CurrentSongNameLbl.Text = currentSong;
+            player.currentMedia = player.currentMedia;
+            player.controls.play();
+            CurrentSongNameLbl.Text = player.currentMedia.name;
             PlayBtn.Text = "Pause";
         }
 
         private void PauseClip(){
-            Player.controls.pause();
+            player.controls.pause();
             PlayBtn.Text = "Resume";
         }
 
         private void EndClip()
         {
-            Player.controls.stop();
+            player.controls.stop();
             CurrentSongNameLbl.Text = "";
         }
 
@@ -102,7 +102,7 @@ namespace Jukebox
 
         private void ResumeClip()
         {
-            Player.controls.play();
+            player.controls.play();
             PlayBtn.Text = "Pause";
         }
 
@@ -111,7 +111,7 @@ namespace Jukebox
             int index = 0;
             for (int i = 0; i < newPlaylist.count; i++)
             {
-                if (Player.currentMedia.name.Equals(newPlaylist.Item[i].name))
+                if (player.currentMedia.name.Equals(newPlaylist.Item[i].name))
                 {
                     index = i;
                     CurrentSongNameLbl.Text = "found";
@@ -119,38 +119,38 @@ namespace Jukebox
                 }
             }
 
-            double currentTime = Player.controls.currentPosition;
-            Player.controls.stop();
-            Player.currentPlaylist = newPlaylist;
-            Player.currentMedia = Player.currentPlaylist.Item[index];
-            Player.controls.play();
-            Player.controls.currentPosition = currentTime;
+            double currentTime = player.controls.currentPosition;
+            player.controls.stop();
+            player.currentPlaylist = newPlaylist;
+            player.currentMedia = player.currentPlaylist.Item[index];
+            player.controls.play();
+            player.controls.currentPosition = currentTime;
         }
 
         private void CreatePlaylist()
         {
-            myPlaylist = Player.playlistCollection.newPlaylist("myPlaylist");
+            myPlaylist = player.playlistCollection.newPlaylist("myPlaylist");
 
             foreach (string s in files)
             {
-                IWMPMedia song = Player.newMedia(fileDirectory + s + ".mp3");
+                IWMPMedia song = player.newMedia(fileDirectory + s + ".mp3");
                 myPlaylist.appendItem(song);
             }
 
-            Player.currentPlaylist = myPlaylist;
-            Player.controls.stop();
+            player.currentPlaylist = myPlaylist;
+            player.controls.stop();
         }
 
         private void CreateShuffleList()
         {
-            shuffledList = Player.playlistCollection.newPlaylist("shuffledList");
+            shuffledList = player.playlistCollection.newPlaylist("shuffledList");
             List<string> names = files.ToList<string>();
             Random rand = new Random();
 
             for (int i = names.Count - 1; i >= 0; i--)
             {
                 int holder = rand.Next(0, i);
-                IWMPMedia song = Player.newMedia(fileDirectory + names[holder] + ".mp3");
+                IWMPMedia song = player.newMedia(fileDirectory + names[holder] + ".mp3");
                 names.RemoveAt(holder);
                 shuffledList.appendItem(song);
             }
@@ -158,31 +158,22 @@ namespace Jukebox
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(Player.playState == WMPPlayState.wmppsMediaEnded && !RepeatBox.Checked)
+            if (player.playState == WMPPlayState.wmppsMediaEnded)
             {
-                Player.controls.next();
-                Player.controls.play();
-            }
-            else if(Player.playState == WMPPlayState.wmppsMediaEnded && RepeatBox.Checked)
-            {
-                Player.controls.play();
-            }
-            else if(Player.playState == WMPPlayState.wmppsLast)
-            {
-                for (int i = Player.currentPlaylist.count; i > 0; i--)
-                {
-                    Player.controls.previous();
-                }
-                Player.controls.play();
+                if(!RepeatBox.Checked)
+                    player.controls.next();
+
+                player.controls.play();
+                CurrentSongNameLbl.Text = player.currentMedia.name;
             }
         }
 
         private void ShuffleBox_CheckedChanged(object sender, EventArgs e)
         {
             if (ShuffleBox.Checked)
-                SwitchPlaylist(shuffledList);
+                player.settings.setMode("shuffle", true);
             else
-                SwitchPlaylist(myPlaylist);
+                player.settings.setMode("shuffle", false);
         }
     }
 }
