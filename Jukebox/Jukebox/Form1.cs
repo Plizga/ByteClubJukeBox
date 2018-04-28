@@ -74,10 +74,24 @@ namespace Jukebox
             EndClip();
             PlayBtn.Text = "Play";
         }
+        private void nextBtn_Click(object sender, EventArgs e)
+        {
+            //Next button moves the SongSelector combobox to the next song and reverts back to beginning of list if at the end
+            if(ShuffleBox.Checked == false)
+            {
+                if (SongSelector.SelectedIndex == SongSelector.Items.Count -1)
+                    SongSelector.SelectedIndex = 0;
+                else
+                    SongSelector.SelectedIndex = (SongSelector.SelectedIndex + 1);
+                currentSong = SongSelector.Text;
+                PlayClip(SongSelector.SelectedIndex);
+            }
+            //Add this section once shuffle is working correctly.
+        }
 
         private void PlayClip(int index)
         {
-            player.currentMedia = player.currentMedia;
+            player.URL = fileDirectory + currentSong + ".mp3";
             player.controls.play();
             CurrentSongNameLbl.Text = player.currentMedia.name;
             PlayBtn.Text = "Pause";
