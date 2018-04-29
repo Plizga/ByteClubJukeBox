@@ -41,7 +41,14 @@ namespace Jukebox
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.ShuffleBox = new System.Windows.Forms.CheckBox();
             this.nextBtn = new System.Windows.Forms.Button();
+            this.volumeBar = new System.Windows.Forms.TrackBar();
+            this.lblVolume = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.lblPercent = new System.Windows.Forms.Label();
+            this.lblPosition = new System.Windows.Forms.Label();
+            this.lblMax = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).BeginInit();
             this.SuspendLayout();
             // 
             // PlayBtn
@@ -114,7 +121,6 @@ namespace Jukebox
             // Timer
             // 
             this.Timer.Enabled = true;
-            this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ShuffleBox
@@ -135,15 +141,78 @@ namespace Jukebox
             this.nextBtn.Name = "nextBtn";
             this.nextBtn.Size = new System.Drawing.Size(75, 23);
             this.nextBtn.TabIndex = 8;
-            this.nextBtn.Text = "button1";
+            this.nextBtn.Text = "Next";
             this.nextBtn.UseVisualStyleBackColor = true;
             this.nextBtn.Click += new System.EventHandler(this.nextBtn_Click);
+            // 
+            // volumeBar
+            // 
+            this.volumeBar.Location = new System.Drawing.Point(773, 354);
+            this.volumeBar.Maximum = 50;
+            this.volumeBar.Name = "volumeBar";
+            this.volumeBar.Size = new System.Drawing.Size(104, 45);
+            this.volumeBar.TabIndex = 9;
+            this.volumeBar.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // lblVolume
+            // 
+            this.lblVolume.AutoSize = true;
+            this.lblVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVolume.Location = new System.Drawing.Point(781, 326);
+            this.lblVolume.Name = "lblVolume";
+            this.lblVolume.Size = new System.Drawing.Size(84, 25);
+            this.lblVolume.TabIndex = 10;
+            this.lblVolume.Text = "Volume";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(45, 354);
+            this.progressBar.Maximum = 0;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(699, 23);
+            this.progressBar.TabIndex = 11;
+            // 
+            // lblPercent
+            // 
+            this.lblPercent.AutoSize = true;
+            this.lblPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPercent.Location = new System.Drawing.Point(313, 314);
+            this.lblPercent.Name = "lblPercent";
+            this.lblPercent.Size = new System.Drawing.Size(145, 37);
+            this.lblPercent.TabIndex = 13;
+            this.lblPercent.Text = "Progress";
+            // 
+            // lblPosition
+            // 
+            this.lblPosition.AutoSize = true;
+            this.lblPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPosition.Location = new System.Drawing.Point(42, 380);
+            this.lblPosition.Name = "lblPosition";
+            this.lblPosition.Size = new System.Drawing.Size(51, 20);
+            this.lblPosition.TabIndex = 14;
+            this.lblPosition.Text = "label1";
+            // 
+            // lblMax
+            // 
+            this.lblMax.AutoSize = true;
+            this.lblMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMax.Location = new System.Drawing.Point(693, 379);
+            this.lblMax.Name = "lblMax";
+            this.lblMax.Size = new System.Drawing.Size(51, 20);
+            this.lblMax.TabIndex = 15;
+            this.lblMax.Text = "label2";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 449);
+            this.Controls.Add(this.lblMax);
+            this.Controls.Add(this.lblPosition);
+            this.Controls.Add(this.lblPercent);
+            this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.lblVolume);
+            this.Controls.Add(this.volumeBar);
             this.Controls.Add(this.nextBtn);
             this.Controls.Add(this.ShuffleBox);
             this.Controls.Add(this.CurrentSongNameLbl);
@@ -155,6 +224,7 @@ namespace Jukebox
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,6 +242,12 @@ namespace Jukebox
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.CheckBox ShuffleBox;
         private System.Windows.Forms.Button nextBtn;
+        private System.Windows.Forms.TrackBar volumeBar;
+        private System.Windows.Forms.Label lblVolume;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label lblPercent;
+        private System.Windows.Forms.Label lblPosition;
+        private System.Windows.Forms.Label lblMax;
     }
 }
 

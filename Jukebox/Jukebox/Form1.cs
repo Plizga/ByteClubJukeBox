@@ -21,11 +21,15 @@ namespace Jukebox
         private IWMPPlaylist shuffledList;
         private IWMPPlaylist myPlaylist;
         private string currentSong = "";
+        private double percent;
+       
 
         public Form1()
         {
-            
             InitializeComponent();
+
+            volumeBar.Value = volumeBar.Maximum /2; //volumebar current maximum = 50 because volume is super loud. this value may change as necessary. 
+            player.settings.volume = volumeBar.Value;
 
             for (int i = 0; i < files.Count; i++)
             {
@@ -45,6 +49,7 @@ namespace Jukebox
 
             SongSelector.Items.Clear();
             SongSelector.Items.AddRange(files.ToArray());
+            SongSelector.SelectedIndex = 0;
         }
 
         private void PlayBtn_Click(object sender, EventArgs e)
@@ -180,6 +185,20 @@ namespace Jukebox
                 player.controls.play();
                 CurrentSongNameLbl.Text = player.currentMedia.name;
             }
+
+            
+            if (progressBar.Maximum != player.currentMedia.duration) //If new song, sets progressbar maximum and mm:ss timestamp.
+            {
+                progressBar.Maximum = (int)player.currentMedia.duration;
+                TimeSpan songMax = TimeSpan.FromSeconds((int)player.currentMedia.duration);
+                lblMax.Text = songMax.ToString(@"mm\:ss");
+            }   
+            progressBar.Value = (int)player.controls.currentPosition;
+
+            //sets the current position mm:ss timestamp.
+            var songCurrent = TimeSpan.FromSeconds((int)player.controls.currentPosition);
+            lblPosition.Text = songCurrent.ToString(@"mm\:ss");
+            
         }
 
         private void ShuffleBox_CheckedChanged(object sender, EventArgs e)
@@ -188,6 +207,12 @@ namespace Jukebox
                 player.settings.setMode("shuffle", true);
             else
                 player.settings.setMode("shuffle", false);
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            //sets volume for the song using trackbar.
+            player.settings.volume = volumeBar.Value;
         }
     }
 }
