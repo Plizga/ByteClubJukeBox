@@ -21,7 +21,7 @@ namespace Jukebox
         private IWMPPlaylist shuffledList;
         private IWMPPlaylist myPlaylist;
         private string currentSong = "";
-        private double percent;
+        private Random rng = new Random();
        
 
         public Form1()
@@ -82,7 +82,7 @@ namespace Jukebox
         private void nextBtn_Click(object sender, EventArgs e)
         {
             //Next button moves the SongSelector combobox to the next song and reverts back to beginning of list if at the end
-            if(ShuffleBox.Checked == false)
+            if(ShuffleBox.Checked == false && RepeatBox.Checked == false) //Next w/out shuffle or repeat checked
             {
                 if (SongSelector.SelectedIndex == SongSelector.Items.Count -1)
                     SongSelector.SelectedIndex = 0;
@@ -91,7 +91,14 @@ namespace Jukebox
                 currentSong = SongSelector.Text;
                 PlayClip(SongSelector.SelectedIndex);
             }
-            //Add this section once shuffle is working correctly.
+            if(RepeatBox.Checked == true) //Repeat
+                PlayClip(SongSelector.SelectedIndex);
+            else if(ShuffleBox.Checked == true) //Shuffle
+            {
+                SongSelector.SelectedIndex = rng.Next(0, SongSelector.Items.Count);
+                currentSong = SongSelector.Text;
+                PlayClip(SongSelector.SelectedIndex);
+            }
         }
 
         private void PlayClip(int index)
