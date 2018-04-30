@@ -166,6 +166,7 @@ namespace Jukebox
             // 
             // progressBar
             // 
+            this.progressBar.Cursor = System.Windows.Forms.Cursors.VSplit;
             this.progressBar.Location = new System.Drawing.Point(45, 354);
             this.progressBar.Maximum = 0;
             this.progressBar.Name = "progressBar";

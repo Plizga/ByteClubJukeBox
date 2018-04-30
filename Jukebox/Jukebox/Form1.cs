@@ -31,6 +31,8 @@ namespace Jukebox
             volumeBar.Value = volumeBar.Maximum /2; //volumebar current maximum = 50 because volume is super loud. this value may change as necessary. 
             player.settings.volume = volumeBar.Value;
 
+            progressBar.Maximum = 1;
+
             for (int i = 0; i < files.Count; i++)
             {
                 files[i] = files[i].Replace("\\", "/");
@@ -53,22 +55,24 @@ namespace Jukebox
         }
 
         private void PlayBtn_Click(object sender, EventArgs e)
-        {
+        { 
+            //Play button plays media or pauses depending on whether or not it is currently playing
            if (!currentSong.Equals("") &&
                 player.currentMedia.sourceURL.IndexOf(SongSelector.Text) != -1 &&
-                player.playState != WMPLib.WMPPlayState.wmppsStopped)
+                player.playState != WMPLib.WMPPlayState.wmppsStopped)  //Current media is selected in the Song selector and the player is not stopped
             {
-                if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)//Media is Playing
                 {
                     PauseClip();
                 }
-                else if (player.playState == WMPLib.WMPPlayState.wmppsPaused)
+                else if (player.playState == WMPLib.WMPPlayState.wmppsPaused)//Media is Paused
                 {
                     ResumeClip();
                 }
             }
             else
             {
+                //if the current selected is not loaded
                 currentSong = SongSelector.Text;
                 PlayClip(SongSelector.SelectedIndex);
             }
@@ -76,24 +80,32 @@ namespace Jukebox
 
         private void StopBtn_Click(object sender, EventArgs e)
         {
+            //Stop Button removes the current media and stops the player
             EndClip();
             PlayBtn.Text = "Play";
         }
+
+
         private void nextBtn_Click(object sender, EventArgs e)
         {
+            NextSong();
+        }
+
+        private void NextSong()
+        {
             //Next button moves the SongSelector combobox to the next song and reverts back to beginning of list if at the end
-            if(ShuffleBox.Checked == false && RepeatBox.Checked == false) //Next w/out shuffle or repeat checked
+            if (ShuffleBox.Checked == false && RepeatBox.Checked == false) //Next w/out shuffle or repeat checked
             {
-                if (SongSelector.SelectedIndex == SongSelector.Items.Count -1)
+                if (SongSelector.SelectedIndex == SongSelector.Items.Count - 1)
                     SongSelector.SelectedIndex = 0;
                 else
                     SongSelector.SelectedIndex = (SongSelector.SelectedIndex + 1);
                 currentSong = SongSelector.Text;
                 PlayClip(SongSelector.SelectedIndex);
             }
-            if(RepeatBox.Checked == true) //Repeat
+            if (RepeatBox.Checked == true) //Repeat
                 PlayClip(SongSelector.SelectedIndex);
-            else if(ShuffleBox.Checked == true) //Shuffle
+            else if (ShuffleBox.Checked == true) //Shuffle
             {
                 SongSelector.SelectedIndex = rng.Next(0, SongSelector.Items.Count);
                 currentSong = SongSelector.Text;
@@ -101,6 +113,7 @@ namespace Jukebox
             }
         }
 
+        //Plays a selection of media
         private void PlayClip(int index)
         {
             player.URL = fileDirectory + currentSong + ".mp3";
@@ -109,29 +122,34 @@ namespace Jukebox
             PlayBtn.Text = "Pause";
         }
 
+        //Pauses the media
         private void PauseClip(){
             player.controls.pause();
             PlayBtn.Text = "Resume";
         }
 
+        //Ends a media playback process
         private void EndClip()
         {
             player.controls.stop();
             CurrentSongNameLbl.Text = "";
         }
 
+        //Switches between two media files
         private void SwitchClip()
         {
             EndClip();
             PlayClip(SongSelector.SelectedIndex); 
         }
 
+        //Resumes a paused clip
         private void ResumeClip()
         {
             player.controls.play();
             PlayBtn.Text = "Pause";
         }
 
+        //Switches playlists (for a shuffled and unshuffled playlist)
         private void SwitchPlaylist(IWMPPlaylist newPlaylist)
         {
             int index = 0;
@@ -140,7 +158,7 @@ namespace Jukebox
                 if (player.currentMedia.name.Equals(newPlaylist.Item[i].name))
                 {
                     index = i;
-                    CurrentSongNameLbl.Text = "found";
+                    //CurrentSongNameLbl.Text = "found";
                     break;
                 }
             }
@@ -184,13 +202,9 @@ namespace Jukebox
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (player.playState == WMPPlayState.wmppsMediaEnded)
+            if (progressBar.Maximum <= progressBar.Value) //If song has ended, plays the next song
             {
-                if(!RepeatBox.Checked)
-                    player.controls.next();
-
-                player.controls.play();
-                CurrentSongNameLbl.Text = player.currentMedia.name;
+                NextSong();
             }
 
             
