@@ -147,7 +147,7 @@ namespace Jukebox
             // 
             // volumeBar
             // 
-            this.volumeBar.Location = new System.Drawing.Point(773, 354);
+            this.volumeBar.Location = new System.Drawing.Point(772, 293);
             this.volumeBar.Maximum = 50;
             this.volumeBar.Name = "volumeBar";
             this.volumeBar.Size = new System.Drawing.Size(104, 45);
@@ -158,7 +158,7 @@ namespace Jukebox
             // 
             this.lblVolume.AutoSize = true;
             this.lblVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVolume.Location = new System.Drawing.Point(781, 326);
+            this.lblVolume.Location = new System.Drawing.Point(781, 265);
             this.lblVolume.Name = "lblVolume";
             this.lblVolume.Size = new System.Drawing.Size(84, 25);
             this.lblVolume.TabIndex = 10;
@@ -169,14 +169,15 @@ namespace Jukebox
             this.progressBar.Location = new System.Drawing.Point(45, 354);
             this.progressBar.Maximum = 0;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(699, 23);
+            this.progressBar.Size = new System.Drawing.Size(856, 23);
             this.progressBar.TabIndex = 11;
+            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // lblPercent
             // 
             this.lblPercent.AutoSize = true;
             this.lblPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPercent.Location = new System.Drawing.Point(313, 314);
+            this.lblPercent.Location = new System.Drawing.Point(395, 314);
             this.lblPercent.Name = "lblPercent";
             this.lblPercent.Size = new System.Drawing.Size(145, 37);
             this.lblPercent.TabIndex = 13;
@@ -196,7 +197,7 @@ namespace Jukebox
             // 
             this.lblMax.AutoSize = true;
             this.lblMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMax.Location = new System.Drawing.Point(693, 379);
+            this.lblMax.Location = new System.Drawing.Point(850, 380);
             this.lblMax.Name = "lblMax";
             this.lblMax.Size = new System.Drawing.Size(51, 20);
             this.lblMax.TabIndex = 15;

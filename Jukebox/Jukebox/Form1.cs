@@ -22,12 +22,13 @@ namespace Jukebox
         private IWMPPlaylist myPlaylist;
         private string currentSong = "";
         private Random rng = new Random();
-       
+
 
         public Form1()
         {
             InitializeComponent();
-
+            //set trackbar to transparent back
+ 
             volumeBar.Value = volumeBar.Maximum /2; //volumebar current maximum = 50 because volume is super loud. this value may change as necessary. 
             player.settings.volume = volumeBar.Value;
 
@@ -220,6 +221,22 @@ namespace Jukebox
         {
             //sets volume for the song using trackbar.
             player.settings.volume = volumeBar.Value;
+        }
+
+        private void progressBar_Click(object sender, EventArgs e)
+        {
+            var newValue = setProgressValue(progressBar);
+            player.controls.currentPosition = newValue;
+            
+            MessageBox.Show(newValue.ToString() + "maximum value is " + player.currentMedia.duration);
+        }
+        private double setProgressValue(ProgressBar pBar)
+        {
+            double ratio = (MousePosition.X - (double)pBar.Location.X) / (double)(pBar.Width);
+            double progressValue = ratio * progressBar.Maximum;
+            return progressValue;
+
+            
         }
     }
 }
