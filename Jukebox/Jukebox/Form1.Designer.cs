@@ -170,6 +170,7 @@ namespace Jukebox
             this.progressBar.Maximum = 0;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(856, 23);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 11;
             this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 

@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Media;
 using System.Windows.Forms;
-using WMPLib;  
+using WMPLib;
 
 namespace Jukebox
 {
@@ -227,13 +221,14 @@ namespace Jukebox
         {
             var newValue = setProgressValue(progressBar);
             player.controls.currentPosition = newValue;
-            
-            MessageBox.Show(newValue.ToString() + "maximum value is " + player.currentMedia.duration);
+            player.controls.play();
+            //MessageBox.Show(newValue.ToString() + "maximum value is " + player.currentMedia.duration);
         }
         private double setProgressValue(ProgressBar pBar)
         {
-            double ratio = (MousePosition.X - (double)pBar.Location.X) / (double)(pBar.Width);
-            double progressValue = ratio * progressBar.Maximum;
+            double ratio = (Cursor.Position.X - pBar.Left) / (double)(pBar.Width);
+            double progressValue = ratio * player.currentMedia.duration;
+            //MessageBox.Show("values: " + MousePosition.X + "    " + pBar.Location.X + "    " + pBar.Width + "Ratio:" +ratio + "progress:" +progressValue+" "+ + progressBar.Maximum);
             return progressValue;
 
             
