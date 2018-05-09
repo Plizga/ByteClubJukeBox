@@ -21,10 +21,10 @@ namespace Jukebox
         public Form1()
         {
             InitializeComponent();
-            //set trackbar to transparent back
- 
-            volumeBar.Value = volumeBar.Maximum /2; //volumebar current maximum = 50 because volume is super loud. this value may change as necessary. 
+            //volumebar current maximum = 50 because volume is super loud. this value may change as necessary. 
+            volumeBar.Value = volumeBar.Maximum /2; 
             player.settings.volume = volumeBar.Value;
+
 
             for (int i = 0; i < files.Count; i++)
             {
@@ -192,15 +192,17 @@ namespace Jukebox
             if (progressBar.Maximum != player.currentMedia.duration) //If new song, sets progressbar maximum and mm:ss timestamp.
             {
                 progressBar.Maximum = (int)player.currentMedia.duration;
-                TimeSpan songMax = TimeSpan.FromSeconds((int)player.currentMedia.duration);
-                lblMax.Text = songMax.ToString(@"mm\:ss");
-            }   
+                lblMax.Text = player.currentMedia.durationString;
+            }
+
             progressBar.Value = (int)player.controls.currentPosition;
 
             //sets the current position mm:ss timestamp.
-            var songCurrent = TimeSpan.FromSeconds((int)player.controls.currentPosition);
-            lblPosition.Text = songCurrent.ToString(@"mm\:ss");
-            
+            if (player.controls.currentPosition == 0)
+                lblPosition.Text = ("0");
+            else
+                lblPosition.Text = player.controls.currentPositionString;
+   
         }
 
         private void ShuffleBox_CheckedChanged(object sender, EventArgs e)
@@ -217,21 +219,19 @@ namespace Jukebox
             player.settings.volume = volumeBar.Value;
         }
 
-        private void progressBar_Click(object sender, EventArgs e)
+       private void progressBar_Click(object sender, EventArgs e)
         {
-            var newValue = setProgressValue(progressBar);
-            player.controls.currentPosition = newValue;
+            //finds mouse absolute location
+            double absoluteMouse = (PointToClient(MousePosition).X - progressBar.Bounds.X);
+            //computes factor of the width divided by 100 cast as double
+            double factor = progressBar.Width / (double)100;
+            //relative relative from absolute divided by factor
+            double relative = absoluteMouse / factor;
+            //converts the 1-100 value into decimal by dividing by 100 cast as double then plays to reset the song to current location
+            player.controls.currentPosition = player.currentMedia.duration * (relative) / ((float)100);
             player.controls.play();
-            //MessageBox.Show(newValue.ToString() + "maximum value is " + player.currentMedia.duration);
         }
-        private double setProgressValue(ProgressBar pBar)
-        {
-            double ratio = (Cursor.Position.X - pBar.Left) / (double)(pBar.Width);
-            double progressValue = ratio * player.currentMedia.duration;
-            //MessageBox.Show("values: " + MousePosition.X + "    " + pBar.Location.X + "    " + pBar.Width + "Ratio:" +ratio + "progress:" +progressValue+" "+ + progressBar.Maximum);
-            return progressValue;
 
-            
-        }
+        
     }
 }
