@@ -48,6 +48,7 @@ namespace Jukebox
             this.lblPosition = new System.Windows.Forms.Label();
             this.lblMax = new System.Windows.Forms.Label();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.lblVolumePercent = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -149,8 +150,8 @@ namespace Jukebox
             // 
             // volumeBar
             // 
-            this.volumeBar.Location = new System.Drawing.Point(772, 293);
-            this.volumeBar.Maximum = 50;
+            this.volumeBar.Location = new System.Drawing.Point(775, 293);
+            this.volumeBar.Maximum = 100;
             this.volumeBar.Name = "volumeBar";
             this.volumeBar.Size = new System.Drawing.Size(104, 45);
             this.volumeBar.TabIndex = 9;
@@ -206,11 +207,21 @@ namespace Jukebox
             this.lblMax.TabIndex = 15;
             this.lblMax.Text = "label2";
             // 
+            // lblVolumePercent
+            // 
+            this.lblVolumePercent.AutoSize = true;
+            this.lblVolumePercent.Location = new System.Drawing.Point(810, 325);
+            this.lblVolumePercent.Name = "lblVolumePercent";
+            this.lblVolumePercent.Size = new System.Drawing.Size(35, 13);
+            this.lblVolumePercent.TabIndex = 16;
+            this.lblVolumePercent.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 449);
+            this.Controls.Add(this.lblVolumePercent);
             this.Controls.Add(this.lblMax);
             this.Controls.Add(this.lblPosition);
             this.Controls.Add(this.lblPercent);
@@ -254,6 +265,7 @@ namespace Jukebox
         private System.Windows.Forms.Label lblPosition;
         private System.Windows.Forms.Label lblMax;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.Label lblVolumePercent;
     }
 }
 

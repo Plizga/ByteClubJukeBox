@@ -21,9 +21,10 @@ namespace Jukebox
         public Form1()
         {
             InitializeComponent();
-            //volumebar current maximum = 50 because volume is super loud. this value may change as necessary. 
-            volumeBar.Value = volumeBar.Maximum /2; 
+            //sets volume and sets the volume percent value.
+            volumeBar.Value = volumeBar.Maximum / 2; 
             player.settings.volume = volumeBar.Value;
+            lblVolumePercent.Text = (volumeBar.Value.ToString() + "%");
 
 
             for (int i = 0; i < files.Count; i++)
@@ -215,8 +216,9 @@ namespace Jukebox
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            //sets volume for the song using trackbar.
+            //sets volume for the song using trackbar and changes percentage.
             player.settings.volume = volumeBar.Value;
+            lblVolumePercent.Text = (volumeBar.Value.ToString()+"%");
         }
 
        private void progressBar_Click(object sender, EventArgs e)
@@ -231,7 +233,5 @@ namespace Jukebox
             player.controls.currentPosition = player.currentMedia.duration * (relative) / ((float)100);
             player.controls.play();
         }
-
-        
     }
 }
