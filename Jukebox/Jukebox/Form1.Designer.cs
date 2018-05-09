@@ -47,8 +47,11 @@ namespace Jukebox
             this.lblPercent = new System.Windows.Forms.Label();
             this.lblPosition = new System.Windows.Forms.Label();
             this.lblMax = new System.Windows.Forms.Label();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.lblVolumePercent = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // PlayBtn
@@ -147,8 +150,8 @@ namespace Jukebox
             // 
             // volumeBar
             // 
-            this.volumeBar.Location = new System.Drawing.Point(772, 293);
-            this.volumeBar.Maximum = 50;
+            this.volumeBar.Location = new System.Drawing.Point(775, 293);
+            this.volumeBar.Maximum = 100;
             this.volumeBar.Name = "volumeBar";
             this.volumeBar.Size = new System.Drawing.Size(104, 45);
             this.volumeBar.TabIndex = 9;
@@ -165,12 +168,12 @@ namespace Jukebox
             this.lblVolume.Text = "Volume";
             // 
             // progressBar
-            // 
+            //
             this.progressBar.Cursor = System.Windows.Forms.Cursors.VSplit;
             this.progressBar.Location = new System.Drawing.Point(45, 354);
             this.progressBar.Maximum = 0;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(856, 23);
+            this.progressBar.Size = new System.Drawing.Size(909, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 11;
             this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
@@ -179,7 +182,7 @@ namespace Jukebox
             // 
             this.lblPercent.AutoSize = true;
             this.lblPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPercent.Location = new System.Drawing.Point(395, 314);
+            this.lblPercent.Location = new System.Drawing.Point(383, 314);
             this.lblPercent.Name = "lblPercent";
             this.lblPercent.Size = new System.Drawing.Size(145, 37);
             this.lblPercent.TabIndex = 13;
@@ -189,27 +192,37 @@ namespace Jukebox
             // 
             this.lblPosition.AutoSize = true;
             this.lblPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPosition.Location = new System.Drawing.Point(42, 380);
+            this.lblPosition.Location = new System.Drawing.Point(12, 380);
             this.lblPosition.Name = "lblPosition";
-            this.lblPosition.Size = new System.Drawing.Size(51, 20);
+            this.lblPosition.Size = new System.Drawing.Size(40, 20);
             this.lblPosition.TabIndex = 14;
-            this.lblPosition.Text = "label1";
+            this.lblPosition.Text = "0:00";
             // 
             // lblMax
             // 
             this.lblMax.AutoSize = true;
             this.lblMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMax.Location = new System.Drawing.Point(850, 380);
+            this.lblMax.Location = new System.Drawing.Point(870, 380);
             this.lblMax.Name = "lblMax";
             this.lblMax.Size = new System.Drawing.Size(51, 20);
             this.lblMax.TabIndex = 15;
             this.lblMax.Text = "label2";
+            // 
+            // lblVolumePercent
+            // 
+            this.lblVolumePercent.AutoSize = true;
+            this.lblVolumePercent.Location = new System.Drawing.Point(810, 325);
+            this.lblVolumePercent.Name = "lblVolumePercent";
+            this.lblVolumePercent.Size = new System.Drawing.Size(35, 13);
+            this.lblVolumePercent.TabIndex = 16;
+            this.lblVolumePercent.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 449);
+            this.Controls.Add(this.lblVolumePercent);
             this.Controls.Add(this.lblMax);
             this.Controls.Add(this.lblPosition);
             this.Controls.Add(this.lblPercent);
@@ -228,6 +241,7 @@ namespace Jukebox
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,6 +265,8 @@ namespace Jukebox
         private System.Windows.Forms.Label lblPercent;
         private System.Windows.Forms.Label lblPosition;
         private System.Windows.Forms.Label lblMax;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.Label lblVolumePercent;
     }
 }
 
