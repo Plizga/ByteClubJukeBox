@@ -198,17 +198,18 @@ namespace Jukebox
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (progressBar.Maximum <= progressBar.Value) //If song has ended, plays the next song
-            {
-                NextSong();
-            }
 
-            
             if (progressBar.Maximum != player.currentMedia.duration) //If new song, sets progressbar maximum and mm:ss timestamp.
             {
                 progressBar.Maximum = (int)player.currentMedia.duration;
                 lblMax.Text = player.currentMedia.durationString;
             }
+
+            if (progressBar.Maximum <= progressBar.Value) //If song has ended, plays the next song
+            {
+                NextSong();
+            }
+
 
             progressBar.Value = (int)player.controls.currentPosition;
 

@@ -168,7 +168,7 @@ namespace Jukebox
             this.lblVolume.Text = "Volume";
             // 
             // progressBar
-            //
+            // 
             this.progressBar.Cursor = System.Windows.Forms.Cursors.VSplit;
             this.progressBar.Location = new System.Drawing.Point(45, 354);
             this.progressBar.Maximum = 0;
@@ -238,7 +238,7 @@ namespace Jukebox
             this.Controls.Add(this.SongSelector);
             this.Controls.Add(this.PlayBtn);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Byte Club Juke Box";
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
