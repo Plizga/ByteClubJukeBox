@@ -239,6 +239,7 @@ namespace Jukebox
             this.Controls.Add(this.PlayBtn);
             this.Name = "Form1";
             this.Text = "Byte Club Juke Box";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();

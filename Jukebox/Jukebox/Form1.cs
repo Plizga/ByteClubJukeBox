@@ -248,5 +248,7 @@ namespace Jukebox
             player.controls.currentPosition = player.currentMedia.duration * (relative) / ((float)100);
             player.controls.play();
         }
+
+
     }
 }
